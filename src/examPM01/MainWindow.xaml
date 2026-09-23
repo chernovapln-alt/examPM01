@@ -1,12 +1,65 @@
 ﻿<Window x:Class="examPM01.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:examPM01"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Сортировка городов" Height="550" Width="700">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Количество городов:" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtN" Width="50" Margin="5,0" VerticalAlignment="Center"/>
+            <Button x:Name="btnCreate" Content="Создать" Width="90" Click="btnCreate_Click"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dgInput" Grid.Row="1" AutoGenerateColumns="False"
+                  Margin="0,0,0,10" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название"
+                                    Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn Header="Дата основания"
+                                    Binding="{Binding FoundationDate, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn Header="Количество жителей"
+                                    Binding="{Binding Population, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button x:Name="btnSort" Content="Отсортировать" Width="110" Click="btnSort_Click"/>
+            <Button x:Name="btnSave" Content="Сохранить в файл" Width="130" Margin="10,0,0,0" Click="btnSave_Click"/>
+        </StackPanel>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                <TextBlock Text="Неотсортированный набор" FontWeight="Bold"/>
+                <DataGrid x:Name="dgUnsorted" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding FoundationDate}" Width="*"/>
+                        <DataGridTextColumn Header="Жители" Binding="{Binding Population}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                <TextBlock Text="Отсортированный набор" FontWeight="Bold"/>
+                <DataGrid x:Name="dgSorted" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding FoundationDate}" Width="*"/>
+                        <DataGridTextColumn Header="Жители" Binding="{Binding Population}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
